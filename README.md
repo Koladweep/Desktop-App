@@ -192,15 +192,15 @@ The repository contains Dockerfile to simplify building process. Skip all the ot
 ```
 - Install vcpkg:
 ```bash
-  sudo docker run --rm -v .:/w ws-builder /bin/bash -c "git clone https://github.com/Microsoft/vcpkg.git && cd vcpkg && git checkout 576379156e82da642f8d1834220876759f13534d && ./bootstrap-vcpkg.sh --disableMetrics"
+  sudo docker run --rm -v "$(pwd)":/w ws-builder /bin/bash -c "git clone https://github.com/Microsoft/vcpkg.git && cd vcpkg && git checkout 576379156e82da642f8d1834220876759f13534d && ./bootstrap-vcpkg.sh --disableMetrics"
 ```
 - Build all the dependencies:
 ```bash
-  for i in qt wireguard wstunnel; do sudo docker run --rm -v .:/w ws-builder /bin/bash -c "cd /w/tools/deps/ && ./install_$i"; done
+  for i in qt wireguard wstunnel; do sudo docker run --rm -v "$(pwd)":/w ws-builder /bin/bash -c "cd /w/tools/deps/ && ./install_$i"; done
 ```
 - Build the application:
 ```bash
-  sudo docker run --rm -v .:/w ws-builder /bin/bash -c "export VCPKG_ROOT=/w/vcpkg  && cd /w/tools/ && ./build_all"
+  sudo docker run --rm -v "$(pwd)":/w ws-builder /bin/bash -c "export VCPKG_ROOT=/w/vcpkg  && cd /w/tools/ && ./build_all"
 ```
 
 ### Prerequisites
