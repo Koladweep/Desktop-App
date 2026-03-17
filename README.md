@@ -200,15 +200,15 @@ The repository contains Dockerfile to simplify building process. Skip all the ot
 ```
 - Install vcpkg via [ws-vcpkg-registry](https://github.com/Windscribe/ws-vcpkg-registry):
 ```bash
-  sudo docker run --rm -v .:/w ws-builder /bin/bash -c "git clone https://github.com/Windscribe/ws-vcpkg-registry.git /tmp/ws-vcpkg-registry && /tmp/ws-vcpkg-registry/install-vcpkg/vcpkg_install.sh /w/vcpkg"
+  sudo docker run --rm -v "$(pwd)"/w ws-builder /bin/bash -c "git clone https://github.com/Windscribe/ws-vcpkg-registry.git /tmp/ws-vcpkg-registry && /tmp/ws-vcpkg-registry/install-vcpkg/vcpkg_install.sh /w/vcpkg"
 ```
 - Build all the dependencies:
 ```bash
-  for i in qt wireguard wstunnel; do sudo docker run --rm -v .:/w ws-builder /bin/bash -c "cd /w/tools/deps/ && ./install_$i"; done
+  for i in qt wireguard wstunnel; do sudo docker run --rm -v "$(pwd)"/w ws-builder /bin/bash -c "cd /w/tools/deps/ && ./install_$i"; done
 ```
 - Build the application:
 ```bash
-  sudo docker run --rm -v .:/w ws-builder /bin/bash -c "export VCPKG_ROOT=/w/vcpkg  && cd /w/tools/ && ./build_all"
+  sudo docker run --rm -v "$(pwd)"/w ws-builder /bin/bash -c "export VCPKG_ROOT=/w/vcpkg  && cd /w/tools/ && ./build_all"
 ```
 
 ### Prerequisites
